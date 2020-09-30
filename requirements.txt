@@ -1,0 +1,22 @@
+asgiref==3.2.10
+astroid @ file:///C:/ci/astroid_1592487315634/work
+beautifulsoup4==4.9.2
+certifi==2020.6.20
+colorama==0.4.3
+Django==3.1.1
+django-bootstrap4==2.2.0
+django-filter==2.4.0
+djangorestframework==3.12.1
+isort @ file:///C:/ci/isort_1600697297430/work
+lazy-object-proxy==1.4.3
+Markdown==3.2.2
+mccabe==0.6.1
+Pillow==7.2.0
+pylint @ file:///C:/ci/pylint_1598617153160/work
+pytz==2020.1
+six==1.15.0
+soupsieve==2.0.1
+sqlparse==0.3.1
+toml @ file:///tmp/build/80754af9/toml_1592853716807/work
+wincertstore==0.2
+wrapt==1.11.2
