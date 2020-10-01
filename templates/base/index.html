@@ -16,8 +16,8 @@
             <div class="jumbotron"> 
                 {% if messages %}
                     {% for message in messages %}
-                    <div{% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}role="alert">{{ message }}</div>
-                    {% endfor %}                
+                        <div>{% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}role="alert">{{ message }}</div>
+                    {% endfor %}
                 {% endif %}
                 <h1>Cadastro de Produtos</h1>
                 <form action="" method="POST" class="form" enctype="multipart/form-data">
@@ -35,15 +35,19 @@
                         <div class="card col-md-3">
                             <img src="{{ product.pictureProduct.url }}" class="card-img-top"  alt="...">
                             <div class="card-body">
-                                <h5 class="card-title">{{ product.productName }}</h5>
-                                <p class="card-text">R${{ product.price}}</p>
-                                <p class="card-text">{{ product.description }}</p>
-                                <p class="card-text">Categoria:{{ product.categories }}</p>
+                                    <h5 class="card-title">{{ product.productName }}</h5>
+                                    <p class="card-text">R$ {{ product.price}}</p>
+                                    <p class="card-text">{{ product.description }}</p>
+                                {% if product.categories == None or product.categories == '' %}
+                                    <p class="card-text">Categoria: </p>
+                                {% else %}
+                                    <p class="card-text">Categoria: {{ product.categories }}</p>
+                                {% endif %}
                                 <a href="#" class="btn btn-primary">Editar</a>
                             </div>
                         </div>
                     {% empty %}
-                        <li>Não foi achado nenhum produto</li>
+                        <h5>Não foi achado nenhum produto</h5>
                     {% endfor %}
                 </div>
             </div>

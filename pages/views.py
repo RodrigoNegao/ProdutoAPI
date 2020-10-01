@@ -12,7 +12,6 @@ def index(request):
     if request.method == 'POST':
 
         product_form = CreateProductForm(data=request.POST,files=request.FILES,)
-        # profile_default = updateImageResumeForm(data=request.POST, files=request.FILES)
         # Check to see the form is valid
         if product_form.is_valid(): # and profile_default.is_valid() :
             # Sava o produto

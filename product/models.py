@@ -3,22 +3,22 @@ from PIL import Image
 from category.models import Category
 
 
-# def upload_location1 (filename):
-#     return "products/P-%s/%s" %(filename)
-
 # Create your models here.
 
 class Product(models.Model):
-    productName = models.CharField(max_length=60)    
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    pictureProduct = models.ImageField( upload_to='products/', #TODO pic with name/P-{0}/{0}' .format(productName), #upload_location1, #'products/P-%s/%s' %(productName),
-                                        default='default/default1.png')
-    description = models.TextField(max_length=120)
-    categories = models.ManyToManyField(Category,blank=True)
-    date = models.DateField(auto_now_add=True)
+    productName = models.CharField(max_length=60,verbose_name="Nome do Produto")
+    price = models.DecimalField(max_digits=10, decimal_places=2,verbose_name="Preço")
+    pictureProduct = models.ImageField( upload_to='products/', #TODO pic with name
+                                        default='default/default1.png',verbose_name="Imagem")
+    description = models.TextField(max_length=120,verbose_name="Descrição")
+    categories = models.ForeignKey(Category,blank=True,null=True, on_delete=models.CASCADE)
+    date = models.DateTimeField(editable=False, auto_now=True)
 
     def __str__(self):
         return self.productName
+    
+    # def upload_location1 (productName):
+    #     return "accounts/avatars/%s/%s" %(productName)
 
     #Resize Image Install Pillow
     def save(self,**kwargs):
