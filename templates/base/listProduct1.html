@@ -1,9 +1,0 @@
-
-    <div class="title2"> Lista de Produtos Cadastrados  </div>
-    <ul>
-        {% for product1 in product %}
-            <li>{{ product1.productName }} </li>
-        {% empty %}
-            <li>Não tem Produto Cadastrado</li>
-        {% endfor %}
-    </ul>
