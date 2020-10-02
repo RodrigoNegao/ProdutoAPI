@@ -20,6 +20,7 @@
                     {% endfor %}
                 {% endif %}
                 <h1>Cadastro de Produtos</h1>
+                {% comment %} <a role="button" href="{% url 'api' %}" class="btn btn-primary">API</a>  {% endcomment %}
                 <form action="" method="POST" class="form" enctype="multipart/form-data">
                         {% csrf_token %}
                         {% bootstrap_form product_form %}
@@ -31,7 +32,7 @@
             <div class="jumbotron">
                 <h1> Lista de Produtos Cadastrados </h1>
                 <div class="card-deck col-md-12">
-                    {% for product in product_list %}
+                    {% for product in pages %}
                         <div class="card col-md-3">
                             <img src="{{ product.pictureProduct.url }}" class="card-img-top"  alt="...">
                             <div class="card-body">
@@ -48,8 +49,23 @@
                         </div>
                     {% empty %}
                         <h5>Não foi achado nenhum produto</h5>
-                    {% endfor %}
+                    {% endfor %}                        
                 </div>
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if pages.has_previous %}
+                                <a href="?page=1">&laquo; first</a>
+                                <a href="?page={{ pages.previous_page_number }}">previous</a>
+                            {% endif %}                    
+                            <span class="current">
+                                Page {{ pages.number }} of {{ pages.paginator.num_pages }}.
+                            </span>                    
+                            {% if pages.has_next %}
+                                <a href="?page={{ pages.next_page_number }}">next</a>
+                                <a href="?page={{ pages.paginator.num_pages }}">last &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
             </div>
 
 </div>

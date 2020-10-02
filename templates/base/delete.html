@@ -18,18 +18,17 @@
                     <div>{% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}role="alert">{{ message }}</div>
                 {% endfor %}
             {% endif %}
-        <h1>Editar</h1>
-        <form action="" method="POST" class="form" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% bootstrap_form productUpdate_form %}
-            {% buttons %}
-                    <button type="submit" class="btn btn-success">Editar</button>
-                {% for product in product_list %}
-                    <a role="button" href="{% url 'product-delete' pk=product.pk %}" class="btn btn-danger">Apagar</a> 
-                {% endfor %}
-            {% endbuttons %}
-            
-        </form>
+                    <h1>Apagar o Produto</h1>
+                    <!-- Create a Form -->
+                    <form method="POST"> 
+                        <!-- Security token by Django -->
+                        {% csrf_token %}
+                        {% for product in product_list %}
+                            <p>Voce quer apagar esse item  ? Nome do Produto : {{ product.productName }}</p>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-danger">Sim</button> 
+                        <a role="button" href="{% url 'index' %}" class="btn btn-primary">Cancelar</a>
+                    </form> 
         </div>
     </div>
 </body>
