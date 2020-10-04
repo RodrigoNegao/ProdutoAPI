@@ -79,6 +79,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ECAPI.wsgi.application'
 
+# config necessaria para solicitação de login e token
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',

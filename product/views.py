@@ -15,9 +15,7 @@ from rest_framework.authentication import (
 from .serializers import ProductSerializer
 from .models import Product
 
-
-# Create your views here.
-
+#classe para filtrar , serializar e solitar autentificação por login ou token
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all().order_by('productName')
     serializer_class = ProductSerializer
@@ -25,16 +23,3 @@ class ProductViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
 
-# class CustomAuthToken(ObtainAuthToken):
-
-#     def post(self, request, *args, **kwargs):
-#         serializer = self.serializer_class(data=request.data,
-#                                            context={'request': request})
-#         serializer.is_valid(raise_exception=True)
-#         user = serializer.validated_data['user']
-#         token, created = Token.objects.get_or_create(user=user)
-#         return Response({
-#             'token': token.key,
-#             'user_id': user.pk,
-#             'email': user.email
-#         })

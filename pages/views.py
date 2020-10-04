@@ -16,30 +16,30 @@ from django.db.models import Q
 # Create your views here.
 def index(request):
     if request.method == 'POST':
-
+        #salva os dados e a foto
         product_form = ProductForm(data=request.POST,files=request.FILES,)
-        # Check to see the form is valid
+        # Verifica se o formulario é valido
         if product_form.is_valid(): 
-            # Sava o produto
+            # Salva o produto
             product_form.save()
-            # Registration Successful! messages.success
+            # Confirma com mensagem na tela
             messages.success(request, 'Produto Salvo com Sucesso')
-            #Go to Index
+            #Vai para pagina principal
             return HttpResponseRedirect(reverse('index'))
         else:
-            # One of the forms was invalid if this else gets called.
+            # Avisa o motivo do erro no shell.
             print(product_form.errors)
 
     else:
-        # Was not an HTTP post so we just render the forms .
+        # Renderiza um formulario para cadastro .
         product_form = ProductForm()
 
-
+    # Cria uma lista por ordem decrescente por data
     product_list = Product.objects.all().order_by('-date') 
  
-    #Paginator #TODO number of pages
-    page_number = request.GET.get('page') #, 1
-    paginator = Paginator(product_list,3) # Show 6 contacts per page.
+    #Paginação
+    page_number = request.GET.get('page') 
+    paginator = Paginator(product_list,3) # Mostra nemero de itens por pagina, no caso 3.
     try:
         pages = paginator.page(page_number)
     except PageNotAnInteger:
@@ -47,22 +47,21 @@ def index(request):
     except EmptyPage:
         pages = paginator.get_page(page_number)
     
-    print (product_list)
-    print (pages)
 
     context = { 'product_form': product_form, 'pages':pages }
     return render(request, 'base/index.html' , context) 
 
 def filter_view(request):
+    #Faz um GET da informação de pesquisa
     search_query = request.GET.get('search_box')
-    # | == OR
+    # | == OR Faz a filtro de acordo que foi digitado
     productfilter = (Q(productName__icontains=search_query) 
-                    | Q(description__icontains=search_query) ) #| Q(price=search_query)#TODO   DECIMAL Q(categories_id=search_query)) 
+                    | Q(description__icontains=search_query) ) 
     product_list = Product.objects.filter(productfilter).order_by('-date')
 
-    #Paginator
+    #Paginação
     page_number = request.GET.get('page')
-    paginator = Paginator(product_list,3) # Show 6 contacts per page.
+    paginator = Paginator(product_list,3) # Mostra nemero de itens por pagina, no caso 3.
     try:
         pages = paginator.page(page_number)
     except PageNotAnInteger:
@@ -75,34 +74,34 @@ def filter_view(request):
 
 
 
-def product_update_view(request, pk): #pk 
-
+def product_update_view(request, pk):
+    #lista todos os produtos
     product_list = Product.objects.all()
-
+    #filtra o produto de acordo a pk da pagina
     product_choice = Product.objects.filter(pk=pk)
 
+    #filtra o produto de acordo a pk da pagina para usar a pk correspondente com o produto
     product = get_object_or_404(product_list, pk=pk)
      
     if request.method == 'POST':
-
+        #salva o formulurio e a foto
         product_update_form = ProductForm(data=request.POST,files=request.FILES,instance=product)
-        # Check to see the form is valid
-        if product_update_form.is_valid(): # and profile_default.is_valid() :
-            # Sava o produto
+        
+        if product_update_form.is_valid(): 
+            # Salva o produto
             product_update_form.save()
-            # Registration Successful! messages.success
+
             messages.success(request, 'Produto Modificado com Sucesso')
-            #Go to Index
+   
             return HttpResponseRedirect(reverse('index'))
         else:
-            # One of the forms was invalid if this else gets called.
+            
             print(product_update_form.errors)
 
     else:
-        # render the forms with data.
+        # renderiza o formulario com dados que estao no banco de dados
         product_update_form = ProductForm(instance=product)
 
-        print(product_update_form)
     
     context = {'product_update_form': product_update_form, 'product_choice':product_choice ,'product_list': product_list}
     return render(request, 'base/update.html',context)
@@ -111,21 +110,20 @@ def product_update_view(request, pk): #pk
 
 
 def product_delete_view(request,pk):
-    # dictionary for initial data with  
-    # field names as keys
+
     product_choice = Product.objects.filter(pk=pk)
 
     context ={'product_choice':product_choice} 
   
-    # fetch the object related to passed id 
+    # filtra a pk do link com a pk do banco de dados  
     obj = get_object_or_404(Product, pk = pk)   
   
     if request.method =="POST": 
-        # delete object 
+        # deleta a o item/produto que tem a pk em comum
         obj.delete() 
-        # Registration Successful! messages.success
+        # Confirma o comando
         messages.success(request, 'Produto Apagado com Sucesso')
-        #Go to Index
+        #vai para a pagina principal
         return HttpResponseRedirect(reverse('index')) 
   
     return render(request, "base/delete.html", context) 

@@ -6,7 +6,7 @@
 
 [Configurar Ambiente (Env) no Python](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/26/python-virtual-env/)
 
-### Criar Ambiente com Conda
+### Criar Ambiente com Conda/Anaconda
 - Instale o ANACONDA 
 - Primeiro Configure cmd [Configurar Ambiente(Env) Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 - Digite: 
@@ -36,6 +36,8 @@ python manage.py migrate product
 python manage.py migrate authtoken
 python manage.py createsuperuser
 ```
+- Cadastro de Categoria somente no [ADMIN](http://127.0.0.1:8000/admin/)
+
 [Link API](http://127.0.0.1:8000/api/)
 -http://127.0.0.1:8000/api/
 
