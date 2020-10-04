@@ -1,15 +1,12 @@
 <!DOCTYPE html>
-{% load static %}
+{% extends "base/base.html" %}
+
 {% load bootstrap4 %}
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Editar</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        {# Custom CSS#}
-        <link rel="stylesheet" href="{% static 'css/index.css' %}">
-    </head>
+
+    {% block head_block %}
+    <title>Editar</title>
+    {% endblock %}
+    {% block body_block %}
 <body>
     <div class="container">
         <div class="jumbotron"> 
@@ -21,11 +18,11 @@
         <h1>Editar</h1>
         <form action="" method="POST" class="form" enctype="multipart/form-data">
             {% csrf_token %}
-            {% bootstrap_form productUpdate_form %}
+            {% bootstrap_form product_update_form %}
             {% buttons %}
-                    <button type="submit" class="btn btn-success">Editar</button>
-                {% for product in product_list %}
-                    <a role="button" href="{% url 'product-delete' pk=product.pk %}" class="btn btn-danger">Apagar</a> 
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                {% for product in product_choice  %}
+                        <a role="button" href="{% url 'product-delete' pk=product.pk %}" class="btn btn-danger">Apagar</a> 
                 {% endfor %}
             {% endbuttons %}
             
@@ -33,6 +30,4 @@
         </div>
     </div>
 </body>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
-</html>
+{% endblock %}

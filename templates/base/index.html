@@ -1,76 +1,43 @@
 <!DOCTYPE html>
-{% load static %}
-{% load bootstrap4 %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    {# Custom CSS#}
-    <link rel="stylesheet" href="{% static 'css/index.css' %}">
-</head>
-<body>
-<div class="container">
-    <h1 class="display-4 center">Cadastro</h1>
-            <div class="jumbotron"> 
-                {% if messages %}
-                    {% for message in messages %}
-                        <div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}role="alert">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
-                <h1>Cadastro de Produtos</h1>
-                {% comment %} <a role="button" href="{% url 'api' %}" class="btn btn-primary">API</a>  {% endcomment %}
-                <form action="" method="POST" class="form" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        {% bootstrap_form product_form %}
-                        {% buttons %}
-                          <button type="submit" class="btn btn-primary">Cadastrar</button>
-                        {% endbuttons %}
-                </form>
-            </div>
-            <div class="jumbotron">
-                <h1> Lista de Produtos Cadastrados </h1>
-                <div class="card-deck col-md-12">
-                    {% for product in pages %}
-                        <div class="card col-md-3">
-                            <img src="{{ product.pictureProduct.url }}" class="card-img-top"  alt="...">
-                            <div class="card-body">
-                                    <h5 class="card-title">{{ product.productName }}</h5>
-                                    <p class="card-text">R$ {{ product.price}}</p>
-                                    <p class="card-text">{{ product.description }}</p>
-                                {% if product.categories == None or product.categories == '' %}
-                                    <p class="card-text">Categoria: </p>
-                                {% else %}
-                                    <p class="card-text">Categoria: {{ product.categories }}</p>
-                                {% endif %}
-                                <a href="{% url 'product-update' pk=product.pk %}" class="btn btn-primary">Editar</a>
-                            </div>
-                        </div>
-                    {% empty %}
-                        <h5>Não foi achado nenhum produto</h5>
-                    {% endfor %}                        
-                </div>
-                    <div class="pagination">
-                        <span class="step-links">
-                            {% if pages.has_previous %}
-                                <a href="?page=1">&laquo; first</a>
-                                <a href="?page={{ pages.previous_page_number }}">previous</a>
-                            {% endif %}                    
-                            <span class="current">
-                                Page {{ pages.number }} of {{ pages.paginator.num_pages }}.
-                            </span>                    
-                            {% if pages.has_next %}
-                                <a href="?page={{ pages.next_page_number }}">next</a>
-                                <a href="?page={{ pages.paginator.num_pages }}">last &raquo;</a>
-                            {% endif %}
-                        </span>
-                    </div>
-            </div>
+{% extends "base/base.html" %}
 
-</div>
-    
-</body>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
-</html>
+{% load bootstrap4 %}
+
+    {% block head_block %}
+    <title>Cadastro</title>
+    {% endblock %}
+    {% block body_block %}
+            <body>
+                <div class="container">
+                    <h1 class="display-3">Cadastro</h1>
+                    <div><a role="button" href="{% url 'product:api-root' %}" class="btn btn-primary right">Link para a API</a></div>
+                        <div class="jumbotron"> 
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}role="alert">{{ message }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                                <h1>Cadastro de Produtos</h1>
+                                 {% comment %} #TODO {% endcomment %}
+                                <form action="" method="POST" class="form" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        {% bootstrap_form product_form layout='inline' %}
+                                        {% buttons %}
+                                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                        {% endbuttons %}
+                                </form>
+                        </div>
+                            <div class="jumbotron">
+                                        <form method="GET" action= {% url 'search' %} class="form-inline my-2 my-lg-0">
+                                            <input class="form-control mr-sm-2" name="search_box" type="search" placeholder="Digite o nome do Produto" >
+                                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                                        </form>
+                                        <br>
+                                <h1> Lista de Produtos Cadastrados </h1>
+                                {% include 'base/product_list.html' %}
+                                {% include 'base/pagination.html' %}
+                            </div>
+                </div>
+                    
+            </body>
+        {% endblock %}

@@ -6,3 +6,17 @@
     margin-right: auto !important;
     width: 50% !important;
 }
+
+.pagination{
+    margin: auto;
+    width: 50%;
+}
+
+.center {
+    padding: 70px 0;
+    text-align: center;
+  }
+
+.right {
+    float: right;
+}

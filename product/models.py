@@ -11,7 +11,7 @@ class Product(models.Model):
     pk_id = models.AutoField(primary_key=True)
     productName = models.CharField(max_length=60,verbose_name="Nome do Produto")
     price = models.DecimalField(max_digits=10, decimal_places=2,verbose_name="Preço")
-    pictureProduct = models.ImageField( upload_to='products/', #TODO pic with name
+    pictureProduct = models.ImageField( upload_to='products/', #TODO save pic with name
                                         default='default/default1.png',verbose_name="Imagem")
     description = models.TextField(max_length=120,verbose_name="Descrição")
     categories = models.ForeignKey(Category,blank=True,null=True, on_delete=models.CASCADE)
