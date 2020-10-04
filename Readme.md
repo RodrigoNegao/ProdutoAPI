@@ -25,11 +25,14 @@ conda create -n ECAPI python
 ```bash
  pip install -r requirements.txt
  ```
-## Config Django para Migração (caso crie um banco de dados NOVO)
+## Config Django para Migração - siga o ordem por causa da FK Categoria/Produto(caso crie um banco de dados NOVO)
 ```bash
 python manage.py migrate
 python manage.py makemigrations
 python manage.py migrate
+python manage.py migrate category
+python manage.py makemigrations category
+python manage.py migrate category
 python manage.py migrate product
 python manage.py makemigrations product
 python manage.py migrate product
