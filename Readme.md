@@ -6,7 +6,7 @@
 
 [Configurar Ambiente (Env) no Python](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/26/python-virtual-env/)
 
-### Criar Ambiente com Conda
+### Criar Ambiente com Conda/Anaconda
 - Instale o ANACONDA 
 - Primeiro Configure cmd [Configurar Ambiente(Env) Conda](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 - Digite: 
@@ -25,17 +25,22 @@ conda create -n ECAPI python
 ```bash
  pip install -r requirements.txt
  ```
-## Config Django para Migração (caso crie um banco de dados NOVO)
+## Config Django para Migração - siga o ordem por causa da FK Categoria/Produto(caso crie um banco de dados NOVO)
 ```bash
 python manage.py migrate
 python manage.py makemigrations
 python manage.py migrate
+python manage.py migrate category
+python manage.py makemigrations category
+python manage.py migrate category
 python manage.py migrate product
 python manage.py makemigrations product
 python manage.py migrate product
 python manage.py migrate authtoken
 python manage.py createsuperuser
 ```
+- Cadastro de Categoria somente no [ADMIN](http://127.0.0.1:8000/admin/)
+
 [Link API](http://127.0.0.1:8000/api/)
 -http://127.0.0.1:8000/api/
 
