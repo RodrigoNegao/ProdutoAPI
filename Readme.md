@@ -1,5 +1,15 @@
 ## **Projeto de uso de Modelo E-COMMERCE Django REST API** :snake:
 
+### O que contém o Projeto:
+- Campo de filtragem;
+- Personalização de alertas no sites (Testes de Respostas Django e Bootstrap);
+- Testes de CRUD personalizados;
+- Teste de bancos de dados salvos no SQLite;
+- Uploads de Fotos;
+- Compactação das fotos para otimização do Servidor;
+- Uso de API DRF com autentificação por Login e Token;
+
+
 ## Para uma boa instalação e testes siga a ordem abaixo.
 
 ### Ambiente Django no Windows
