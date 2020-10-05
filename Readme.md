@@ -9,7 +9,6 @@
 - Compactação das fotos para otimização do Servidor;
 - Uso de API DRF com autentificação por Login e Token;
 
-
 ## Para uma boa instalação e testes siga a ordem abaixo.
 
 ### Ambiente Django no Windows
